@@ -1,0 +1,35 @@
+<html>
+
+{{> header}}
+{{> nav}}
+
+
+<body>
+
+
+    {{#blogPosts}}
+        <div class="card text-center">
+            <div class="card-header">
+                Subject: {{subject}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text">{{body}}</p>
+                <a href="/posts/edit/{{blogid}}">
+                    <input type="hidden" name="blogPost" value="{{blogid}}">
+                    <button class="btn btn-sm btn-outline-secondary my-2 my-sm-0" type="button">Update</button></a>
+
+            </div>
+            <div class="card-footer text-muted">
+                {{author}} | {{date}}
+            </div>
+        </div>
+    {{/blogPosts}}
+
+
+
+</body>
+
+
+{{> footer}}
+</html>
