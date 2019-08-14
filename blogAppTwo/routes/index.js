@@ -2,11 +2,20 @@ const express = require('express')
 const router = express.Router() 
 const bcrypt = require('bcrypt')
 const SALT_ROUNDS = 10
+const session = require('express-session')
+//const Models = require('../models/models')
 
 
 router.get('/', (req, res) => {
     res.render('index')
 })
+
+router.use(session({
+    secret: 'dcbchtxj',
+    resave: false,
+    saveUninitialized: false,
+}))
+
 
 router.post('/login', (req, res) => {
     let username = req.body.username
@@ -59,6 +68,16 @@ router.post('/register', (req, res) => {
     })
 })
 
-
+router.get('logout',(req, res) => {
+    if(req.session) {
+        req.session.destroy(error => {
+            if(error) {
+                next(error)
+            }else {
+                res.redirect('index')
+            }
+        })
+    }
+})
 
 module.exports = router

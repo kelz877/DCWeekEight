@@ -5,6 +5,7 @@ const path = require('path')
 const userRoutes = require('./routes/posts')
 const indexRoutes = require('./routes/index')
 const session = require('express-session')
+const checkAuthorization = require('./utils/authorization')
 //const Models = require('./models/models')
 app.use(express.urlencoded())
 
@@ -23,6 +24,7 @@ app.use(session({
     saveUninitialized: false,
 }))
  
+
 app.use(express.json())
 
 const VIEWS_PATH = path.join(__dirname, '/views')
@@ -38,3 +40,4 @@ app.set('view engine', 'mustache')
 app.listen(3000, () =>{
     console.log("Server is running successfully!")
 })
+
