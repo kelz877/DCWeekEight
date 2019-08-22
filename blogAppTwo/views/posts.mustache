@@ -6,6 +6,7 @@
 
 <body>
 <h1></h1>
+
 <div class="container">
     <form action="/posts/add-post" method="POST">
      <div class="form-group row">
@@ -37,6 +38,7 @@
 </div>
 
     {{#blogPosts}}
+      <div class="card">
         <div class="card text-center">
             <div class="card-header">
                 {{subject}}
@@ -53,6 +55,7 @@
                 {{author}} | {{date}}
             </div>
         </div>
+      </div>
     {{/blogPosts}}
 
 

@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router()
 //const Models = require('../models/models')
-
+//router.use(express.urlencoded())
 
 router.get('/', async(req, res) => {
     let blogPosts = await db.any('SELECT blogid, title, subject, description, author, date FROM posts ORDER BY blogid DESC;')

@@ -13,16 +13,23 @@ var pgp = require('pg-promise')();
 var connectionString = 'postgres://xktovaan:5oDFhlm3WGlhaXCczdnihoF5Rg7SVhyY@raja.db.elephantsql.com:5432/xktovaan'
 db = pgp(connectionString);
 
-app.use(express.static('static'))
-//where should the user go when they activate the routes?
-app.use('/', indexRoutes)
-app.use('/posts', userRoutes)
-
+//must be in front of routes so routes can use
 app.use(session({
     secret: 'dcbchtxj',
     resave: false,
     saveUninitialized: false,
 }))
+
+app.use((req, res, next) => {
+    res.locals.authenticated = req.session.user == null ? false : true
+    next()
+})
+
+app.use(express.static('static'))
+//where should the user go when they activate the routes?
+app.use('/', indexRoutes)
+app.use('/posts', checkAuthorization, userRoutes)
+
  
 
 app.use(express.json())
@@ -36,6 +43,7 @@ app.engine('mustache', mustacheExpress(VIEWS_PATH + '/partials', '.mustache'))
 app.set('views', VIEWS_PATH)
 //file extensions will be in mustache
 app.set('view engine', 'mustache')
+
 
 app.listen(3000, () =>{
     console.log("Server is running successfully!")
